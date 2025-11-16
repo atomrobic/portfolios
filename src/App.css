@@ -1,0 +1,67 @@
+/* index.css */
+
+/* ------------------------------------------------------------------
+   1. FONT IMPORTS
+   ------------------------------------------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Additional fonts – feel free to comment out any you don’t need */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* ------------------------------------------------------------------
+   2. GLOBAL FONT SETTINGS
+   ------------------------------------------------------------------ */
+body {
+  /* Primary font – Poppins (your original choice) */
+  font-family: 'Poppins', Inter, Roboto, -apple-system, BlinkMacSystemFont,
+               'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ------------------------------------------------------------------
+   3. FONT HIERARCHY (optional but recommended)
+   ------------------------------------------------------------------ */
+
+/* Headings – bolder Poppins */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', Inter, sans-serif;
+  font-weight: 600;            /* or 700 if you prefer bolder */
+  line-height: 1.2;
+}
+
+/* UI text (buttons, labels, nav) – crisp Inter */
+button,
+input,
+select,
+textarea,
+nav,
+label,
+.caption,
+.small {
+  font-family: Inter, 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+/* Body copy – light, readable */
+p,
+li,
+blockquote,
+code,
+pre {
+  font-family: 'Poppins', Inter, Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------------------------
+   4. FALLBACK & PERFORMANCE TIP
+   ------------------------------------------------------------------ */
+/* If you want to load only the weights you actually use, replace the
+   generic imports above with something like:
+
+   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+   This reduces payload and improves page load speed. */

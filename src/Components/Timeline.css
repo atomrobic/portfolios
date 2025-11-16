@@ -1,0 +1,180 @@
+/* Timeline.css */
+.timeline-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+  min-height: 100vh;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.timeline-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00d4ff, #7b00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 3rem;
+  letter-spacing: 1px;
+}
+
+/* Timeline Line */
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+  list-style: none;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #333, #555, #333);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+  z-index: 1;
+}
+
+/* Timeline Items */
+.timeline-item {
+  position: relative;
+  margin: 4rem 0;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.timeline-item.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Direction Containers */
+.direction-r,
+.direction-l {
+  width: 45%;
+  position: relative;
+}
+
+.direction-r {
+  left: 55%;
+  text-align: left;
+}
+
+.direction-l {
+  left: 0;
+  text-align: right;
+}
+
+/* Flag (Title + Time) */
+.flag-wrapper {
+  position: relative;
+  display: inline-block;
+  background: #111;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.flag {
+  display: block;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #00d4ff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.time-wrapper {
+  display: block;
+  margin-top: 4px;
+}
+
+.time {
+  font-size: 0.85rem;
+  color: #aaa;
+  font-weight: 500;
+}
+
+/* Description */
+.desc {
+  margin-top: 12px;
+  padding: 16px 20px;
+  background: rgba(20, 20, 30, 0.7);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #ccc;
+  backdrop-filter: blur(4px);
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+}
+
+/* Connector Dots */
+.direction-r::before,
+.direction-l::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  width: 16px;
+  height: 16px;
+  background: #00d4ff;
+  border: 3px solid #111;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+  z-index: 3;
+}
+
+.direction-r::before {
+  left: -8px;
+  transform: translateX(-50%);
+}
+
+.direction-l::before {
+  right: -8px;
+  transform: translateX(50%);
+}
+
+/* Hover Effects */
+.timeline-item:hover .flag-wrapper {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 212, 255, 0.15);
+  border-color: #00d4ff;
+}
+
+.timeline-item:hover .desc {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: #00d4ff;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 30px;
+  }
+
+  .direction-r,
+  .direction-l {
+    width: 100%;
+    left: 60px !important;
+    text-align: left;
+  }
+
+  .direction-r::before,
+  .direction-l::before {
+    left: -46px !important;
+  }
+
+  .timeline-title {
+    font-size: 2rem;
+  }
+}

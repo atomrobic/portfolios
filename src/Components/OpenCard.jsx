@@ -1,0 +1,113 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { cn } from "@/lib/utils";
+
+// ContentCard Component for rendering text + image
+const ContentCard = ({ title, category, image, logo }) => {
+  return (
+    <div
+      className="relative flex h-full flex-col items-start justify-between rounded-lg p-4"
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {image && <div className="absolute inset-0 rounded-lg bg-black opacity-70" />}
+
+      <div className="relative z-10">
+        {category && <div className="text-xs text-gray-200">{category}</div>}
+
+        {title && (
+          <div className="mr-2 text-lg font-bold leading-tight tracking-wide text-red-300">
+            {title}
+          </div>
+        )}
+      </div>
+      {logo && (
+        <img src={logo} alt={title} className="relative z-10 h-9 rounded-lg" />
+      )}
+    </div>
+  );
+};
+
+// SimpleImageCard component for rendering only image
+const SimpleImageCard = ({ image }) => {
+  return (
+    <div
+      className="relative flex w-full flex-col items-start justify-between rounded-lg p-4"
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    />
+  );
+};
+
+const HoverRevealSlip = ({ show }) => {
+  const common = "absolute flex w-full h-full [backface-visibility:hidden]";
+
+  return (
+    <div className={cn("group relative h-60 w-52 [perspective:1000px]")}>
+      {/* Back cover - static */}
+      <div className={cn("absolute inset-0 h-full w-48 rounded-lg bg-gray-50 shadow-md")} />
+
+      {/* Front card that rotates */}
+      <div
+        className={cn(
+          "relative z-50 h-full w-48 origin-left transition-transform duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(-30deg)]"
+        )}
+      >
+        {/* Front side of the card */}
+        <div className={cn("h-full w-full rounded-lg bg-white shadow-md", common)}>
+          {show}
+        </div>
+      </div>
+
+      {/* Sliding link/tab coming out from behind */}
+      <div
+        className={cn(
+          "absolute bottom-0 right-0 z-10 flex h-48 w-14 -translate-x-10 transform items-start justify-start rounded-r-lg bg-green-600 pl-2 pt-2 text-xs font-bold text-white transition-transform duration-300 ease-in-out [backface-visibility:hidden] group-hover:translate-x-0 group-hover:rotate-[5deg]"
+        )}
+      >
+        <div className="-rotate-90 whitespace-nowrap pb-16 pr-9">CLICK TO READ</div>
+      </div>
+    </div>
+  );
+};
+
+// Main CaseStudyCard Component
+export default function CaseStudyCard({
+  title,
+  category,
+  link,
+  image,
+  logo,
+  type = "content",
+}) {
+  return (
+    <div className="flex gap-8">
+      <a href={link} className="block">
+        <HoverRevealSlip
+          show={
+            type === "content" ? (
+              <ContentCard title={title} category={category} image={image} logo={logo} />
+            ) : (
+              <SimpleImageCard image={image} />
+            )
+          }
+        />
+      </a>
+    </div>
+  );
+}
+
+CaseStudyCard.propTypes = {
+  title: PropTypes.string,
+  category: PropTypes.string,
+  image: PropTypes.string,
+  logo: PropTypes.string,
+  link: PropTypes.string,
+  type: PropTypes.oneOf(["content", "simple-image"]),
+};
