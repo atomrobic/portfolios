@@ -9,7 +9,7 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
-} from "@/components/ui/resizable-navbar";
+} from "@/Components/ui/resizable-navbar";
 import { useState, useEffect } from "react";
 import { Menu , Dot,Circle} from 'lucide-react';
 import Header from "./Header";
