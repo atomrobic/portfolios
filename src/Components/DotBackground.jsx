@@ -110,14 +110,14 @@ export function DotBackground() {
             transition={{ duration: 0.8 }}
             className="flex justify-center"
           >
-            <CaseStudyCard
-              category="RESUME"
-              image="https://res.cloudinary.com/ddtpurhae/image/upload/v1763210558/The_mad_angle_007_my_cv_cartoon_904c5c18-b66a-465a-bb4c-0a456d803823_pesbgo.webp"
-              link={resumePdf}
-              logo="https://cdn-icons-png.flaticon.com/512/888/888853.png"
-              title="Akhil Appu - Full Stack Developer"
-              type="resume"
-            />
+           <CaseStudyCard
+  category="RESUME"
+  image="https://res.cloudinary.com/ddtpurhae/image/upload/v1763210558/The_mad_angle_007_my_cv_cartoon_904c5c18-b66a-465a-bb4c-0a456d803823_pesbgo.webp"
+  link="https://drive.google.com/file/d/1VC_aYurVHgj0kCu1e__b-Kl3V0G9phkJ/preview"
+  logo="https://cdn-icons-png.flaticon.com/512/888/888853.png"
+  title="Akhil Appu - Full Stack Developer"
+  type="resume"
+/>
           </MotionDiv>
 
           {/* TIMELINE */}
