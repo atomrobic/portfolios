@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { cn } from "@/lib/utils";
+import PdfModal from "./PdfModal";
+import { useState } from "react";
 
 // ContentCard Component for rendering text + image
 const ContentCard = ({ title, category, image, logo }) => {
@@ -86,22 +88,43 @@ export default function CaseStudyCard({
   logo,
   type = "content",
 }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="flex gap-8">
-      <a href={link} className="block">
-        <HoverRevealSlip
-          show={
-            type === "content" ? (
-              <ContentCard title={title} category={category} image={image} logo={logo} />
-            ) : (
-              <SimpleImageCard image={image} />
-            )
-          }
-        />
-      </a>
+      {/* SHOW CARD ONLY WHEN MODAL IS CLOSED */}
+      {!open && (
+        <div
+          onClick={() => setOpen(true)}
+          className="cursor-pointer"
+        >
+          <HoverRevealSlip
+            show={
+              type === "content" ? (
+                <ContentCard
+                  title={title}
+                  category={category}
+                  image={image}
+                  logo={logo}
+                />
+              ) : (
+                <SimpleImageCard image={image} />
+              )
+            }
+          />
+        </div>
+      )}
+
+      {/* RESUME MODAL */}
+      <PdfModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        pdfUrl={link}
+      />
     </div>
   );
 }
+
 
 CaseStudyCard.propTypes = {
   title: PropTypes.string,

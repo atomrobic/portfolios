@@ -166,6 +166,7 @@ const SkillIcons = {
 };
 
 export default function GridBackgroundDemo() {
+  const [imageLoading, setImageLoading] = React.useState(true);
   const [selectedShape, setSelectedShape] = React.useState("squircle");
   const [showVideo, setShowVideo] = React.useState(false);
   const [videoError, setVideoError] = React.useState(false);
@@ -332,23 +333,40 @@ export default function GridBackgroundDemo() {
                   </motion.video>
                 ) : (
                   <div className="relative">
-                    <motion.img
-                      src="https://res.cloudinary.com/ddtpurhae/image/upload/v1763213216/akhilappu_dp_b4ysyx.png"
-                      alt="Akhil"
-                      className={cn(
-                        "relative z-10 w-full max-w-[280px] sm:max-w-[350px] md:max-w-[400px] object-cover transition-all duration-500",
-                        shapeOptions[selectedShape],
-                        "group-hover:scale-105 group-hover:shadow-2xl group-hover:shadow-cyan-500/40"
-                      )}
-                      whileHover={{ scale: 1.05 }}
-                      onMouseDown={handlePressStart}
-                      onMouseUp={handlePressEnd}
-                      onMouseLeave={handlePressEnd}
-                      onTouchStart={handlePressStart}
-                      onTouchEnd={handlePressEnd}
-                      onTouchCancel={handlePressEnd}
-                      style={{ cursor: 'pointer' }}
-                    />
+                    <div className="relative">
+  {/* 🔵 Animated Loading Bar */}
+  {imageLoading && (
+    <div className="absolute inset-0 z-20 flex items-end justify-center rounded-[inherit] overflow-hidden">
+      <div className="mb-4 w-4/5 h-1.5 bg-neutral-700/60 rounded-full overflow-hidden">
+        <div className="loader-bar" />
+      </div>
+    </div>
+  )}
+
+  {/* 👤 PROFILE IMAGE */}
+  <motion.img
+    src="https://res.cloudinary.com/ddtpurhae/image/upload/v1763213216/akhilappu_dp_b4ysyx.png"
+    alt="Akhil"
+    onLoad={() => setImageLoading(false)}
+    onError={() => setImageLoading(false)}
+    className={cn(
+      "relative z-10 w-full max-w-[280px] sm:max-w-[350px] md:max-w-[400px] object-cover transition-all duration-500",
+      shapeOptions[selectedShape],
+      imageLoading ? "opacity-0" : "opacity-100",
+      "group-hover:scale-105 group-hover:shadow-2xl group-hover:shadow-cyan-500/40"
+    )}
+    whileHover={{ scale: 1.05 }}
+    onMouseDown={handlePressStart}
+    onMouseUp={handlePressEnd}
+    onMouseLeave={handlePressEnd}
+    onTouchStart={handlePressStart}
+    onTouchEnd={handlePressEnd}
+    onTouchCancel={handlePressEnd}
+    style={{ cursor: "pointer" }}
+  />
+</div>
+
+
                     
                     {longPressProgress > 0 && (
                       <motion.div className="absolute inset-0 pointer-events-none" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -501,6 +519,30 @@ export default function GridBackgroundDemo() {
           background: radial-gradient(circle at center, var(--tw-gradient-stops));
         }
       `}</style>
+      <style jsx>{`
+  .loader-bar {
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #22d3ee,
+      #3b82f6,
+      transparent
+    );
+    animation: loading-slide 1.2s infinite ease-in-out;
+  }
+
+  @keyframes loading-slide {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(250%);
+    }
+  }
+`}</style>
+
     </>
   );
 }
