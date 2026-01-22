@@ -56,69 +56,7 @@ export function DotBackground() {
           </MotionDiv>
 
           {/* RESUME TITLE */}
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="projects-title"
-          >
-            RESUME
-          </motion.h2>
 
-          <style>{`
-            .projects-title {
-              text-align: center;
-              font-size: 3.5rem;
-              font-weight: 800;
-              background: linear-gradient(135deg, #505a5cff, #515a68ff, #baacc6ff);
-              -webkit-background-clip: text;
-              background-clip: text;
-              color: transparent;
-              margin: 0 auto 40px auto;
-              width: fit-content;
-              position: relative;
-            }
-
-            .projects-title::after {
-              content: '';
-              position: absolute;
-              bottom: -10px;
-              left: 50%;
-              transform: translateX(-50%);
-              width: 80%;
-              height: 3px;
-              background: linear-gradient(90deg, transparent, #22d3ee, #3b82f6, #a855f7, transparent);
-              border-radius: 2px;
-            }
-          `}</style>
-
-          {/* RESUME SUBTEXT */}
-          <motion.p
-            className="text-gray-400 text-base sm:text-lg md:text-xl mt-2 tracking-wider max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-          >
-          </motion.p>
-
-          {/* RESUME CARD */}
-          <MotionDiv
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex justify-center"
-          >
-           <CaseStudyCard
-  category="RESUME"
-  image="https://res.cloudinary.com/ddtpurhae/image/upload/v1766402722/A_vdie41.png"
-  link="https://drive.google.com/file/d/1VC_aYurVHgj0kCu1e__b-Kl3V0G9phkJ/preview"
-  logo="https://cdn-icons-png.flaticon.com/512/888/888853.png"
-  title="Akhil Appu - Full Stack Developer"
-  type="resume"
-/>
-          </MotionDiv>
 
           {/* TIMELINE */}
           <MotionDiv

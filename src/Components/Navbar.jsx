@@ -1,313 +1,174 @@
-"use client";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  Navbar,
-  NavBody,
-  NavItems,
-  MobileNav,
-  NavbarLogo,
-  NavbarButton,
-  MobileNavHeader,
-  MobileNavToggle,
-  MobileNavMenu,
-} from "@/Components/ui/resizable-navbar";
-import { useState, useEffect } from "react";
-import { Menu , Dot,Circle} from 'lucide-react';
-import Header from "./Header";
-import { X, Linkedin, Github, MessageCircle, Plus } from "lucide-react";
+  Github, Linkedin, Youtube, MessageCircle,
+  Mail, ChevronRight, X, Menu, ExternalLink, FileText
+} from "lucide-react";
 
-export function NavbarDemo() {
-  const navItems = [
-    { name: "Home", link: "#home" },
-    { name: "Projects", link: "#projects" },
-  ];
-
+export default function PortfolioNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showFloatingMenu, setShowFloatingMenu] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeWidget, setActiveWidget] = useState(null);
 
-  // ============ RESUME & HIRE ME CONFIGURATION ============
-  // Replace with your actual resume URL
-  const RESUME_URL = "https://drive.google.com/file/d/YOUR_FILE_ID/view"; // Replace this!
-  
-  // Email configuration for "Hire Me" button
-  const EMAIL_ADDRESS = "akhilappuyeroor@gmail.com";
-  const EMAIL_SUBJECT = "Hiring Inquiry - Let's Work Together!";
-  const EMAIL_BODY = "Hi Akhil,%0D%0A%0D%0AI came across your portfolio and I'm interested in discussing a potential opportunity.%0D%0A%0D%0ABest regards,";
-  
-  const handleResumeClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // Open resume in new tab
-    window.open(RESUME_URL, '_blank', 'noopener,noreferrer');
-  };
+  const navLinks = ["Home", "About", "Projects", "Experience"];
 
-  const handleHireClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // Create mailto link with subject and body
-    const mailtoLink = `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(EMAIL_SUBJECT)}&body=${EMAIL_BODY}`;
-    // Use window.location for better compatibility
-    window.location.href = mailtoLink;
-  };
-  // ========================================================
-
-  // Prevent background scrolling when menu is open
-  useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "auto";
-  }, [isMobileMenuOpen]);
-
-  // Show floating menu button after scrolling
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowFloatingMenu(true);
-      } else {
-        setShowFloatingMenu(false);
-        setIsMenuOpen(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const socialLinks = [
-    {
-      name: "LinkedIn",
-      icon: <Linkedin size={24} />,
-      url: "https://www.linkedin.com/in/akhil-a-7186052b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-      color: "hover:bg-blue-600",
-      bgColor: "bg-blue-500",
-    },
-    {
-      name: "GitHub",
-      icon: <Github size={24} />,
-      url: "https://github.com/atomrobic",
-      color: "hover:bg-gray-700",
-      bgColor: "bg-gray-600",
-    },
-    {
-      name: "Telegram",
-      icon: <MessageCircle size={24} />,
-      url: "https://t.me/HAPPY_LIFE000_P",
-      color: "hover:bg-blue-500",
-      bgColor: "bg-blue-400",
-    },
+  const sideIcons = [
+    { icon: <Github size={20} />, label: "GitHub", href: "https://github.com/atomrobic", color: "hover:bg-zinc-800" },
+    { icon: <Linkedin size={20} />, label: "LinkedIn", href: "https://linkedin.com/in/akhil", color: "hover:bg-blue-700" },
+    { icon: <Youtube size={20} />, label: "YouTube", href: "#", color: "hover:bg-red-600" },
+    { icon: <MessageCircle size={20} />, label: "WhatsApp", href: "#", color: "hover:bg-green-600" },
+    { icon: <Mail size={20} />, label: "Email", href: "mailto:contact@example.com", color: "hover:bg-red-500" },
   ];
+
+  const handleIconClick = (index) => {
+    setActiveWidget(activeWidget === index ? null : index);
+  };
 
   return (
-    <div className="relative w-full">
-      <Navbar>
-        {/* Desktop Navigation */}
-        <NavBody>
-          <NavbarLogo />
-          <NavItems items={navItems} />
-          <div className="flex items-center gap-6">
-            {/* Social Icons with Glow */}
-            <div className="flex items-center gap-4">
-              <a
-                href="https://www.linkedin.com/in/akhil-a-7186052b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-700 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 hover:shadow-[inset_0_0_8px_rgba(59,130,246,0.4)] hover:scale-110 rounded-full p-1"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="https://github.com/atomrobic"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-700 dark:text-neutral-300 hover:text-gray-600 dark:hover:text-gray-400 transition-all duration-300 hover:shadow-[inset_0_0_8px_rgba(107,114,128,0.4)] hover:scale-110 rounded-full p-1"
-                aria-label="GitHub"
-              >
-                <Github size={20} />
-              </a>
-              <a
-                href="https://t.me/HAPPY_LIFE000_P"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-700 dark:text-neutral-300 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-300 hover:shadow-[inset_0_0_8px_rgba(59,130,246,0.4)] hover:scale-110 rounded-full p-1"
-                aria-label="Telegram"
-              >
-                <MessageCircle size={20} />
-              </a>
-            </div>
-            
-            {/* Buttons with functionality */}
-            <div className="flex items-center gap-4">
-              <NavbarButton 
-                variant="secondary" 
-                onClick={handleResumeClick}
-              >
-                Resume
-              </NavbarButton>
-              <NavbarButton 
-                variant="primary"
-                onClick={handleHireClick}
-              >
-                Hire Me
-              </NavbarButton>
+    <>
+      {/* --- 1. TOP NAVBAR (Glass Design) --- */}
+      <header className="fixed top-6 z-[50] w-full flex justify-center px-4">
+        <nav className="relative flex items-center justify-between gap-2 rounded-full border border-white/20 bg-black/40 p-2 pl-3 backdrop-blur-xl shadow-2xl w-full max-w-2xl">
+          <div className="flex items-center gap-3">
+            <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-blue-500 bg-zinc-900 shadow-lg">
+              <img
+                src="https://res.cloudinary.com/ddtpurhae/image/upload/v1769018925/WhatsApp_Image_2026-01-21_at_11.37.37_PM_cxccek.jpg"
+                alt="Profile"
+                className="h-full w-full object-cover"
+              />
             </div>
           </div>
-        </NavBody>
 
-        {/* Mobile Navigation */}
-        <MobileNav>
-          <MobileNavHeader>
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-              className="text-neutral-900 dark:text-white"
-            />
-            <NavbarLogo />
-          </MobileNavHeader>
-
-          {/* Mobile menu with white background and X button */}
-          <MobileNavMenu
-            isOpen={isMobileMenuOpen}
-            onClose={() => setIsMobileMenuOpen(false)}
-            className={`fixed inset-0 z-50 bg-gray-100 dark:bg-neutral-900 transition-transform duration-300 ${
-              isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-            }`}
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute top-4 right-4 text-black dark:text-white p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-              aria-label="Close menu"
-            >
-              <X size={28} />
-            </button>
-
-            <div className="flex flex-col gap-6 p-6 mt-10">
-              <nav className="flex flex-col gap-4">
-                {navItems.map((item, idx) => (
-                  <a
-                    key={idx}
-                    href={item.link}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-lg font-medium text-black dark:text-white transition-colors hover:text-blue-600 dark:hover:text-blue-400"
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </nav>
-
-              <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
-
-              <div className="flex flex-col gap-3">
-                <NavbarButton
-                  onClick={(e) => {
-                    handleResumeClick(e);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  variant="secondary"
-                  className="w-full"
-                >
-                  Resume
-                </NavbarButton>
-                <NavbarButton
-                  onClick={(e) => {
-                    handleHireClick(e);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  variant="primary"
-                  className="w-full"
-                >
-                  Hire Me
-                </NavbarButton>
-              </div>
-
-              <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
-
-              <div className="flex justify-center gap-6">
-                <a
-                  href="https://www.linkedin.com/in/akhil-a-7186052b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                >
-                  <Linkedin size={24} />
-                </a>
-                <a
-                  href="https://github.com/atomrobic"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
-                >
-                  <Github size={24} />
-                </a>
-                <a
-                  href="https://t.me/HAPPY_LIFE000_P"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors animate-pulse"
-                >
-                  <MessageCircle size={24} />
-                </a>
-              </div>
-            </div>
-          </MobileNavMenu>
-        </MobileNav>
-      </Navbar>
-
-      {/* Your content */}
-      <Header />
-
-      {/* Floating Social Menu */}
-      {showFloatingMenu && (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-          {/* Social Icons - appear when menu is open */}
-          <div
-            className={`flex flex-col gap-3 transition-all duration-300 ${
-              isMenuOpen
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 translate-y-4 pointer-events-none"
-            }`}
-          >
-            {socialLinks.map((social, idx) => (
-              <a
-                key={idx}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${social.bgColor} ${social.color} text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex items-center gap-3 group`}
-                aria-label={social.name}
-                style={{
-                  transitionDelay: isMenuOpen ? `${idx * 50}ms` : "0ms",
-                }}
-              >
-                {/* Tooltip */}
-                <span className="absolute right-full mr-3 bg-neutral-900 text-white px-3 py-1 rounded-md text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  {social.name}
-                </span>
-                {social.icon}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((item) => (
+              <a key={item} href={`#${item.toLowerCase()}`} className="rounded-full px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 hover:text-blue-400">
+                {item}
               </a>
             ))}
           </div>
 
-          <button
-  onClick={() => setIsMenuOpen(!isMenuOpen)}
-  className={`bg-gradient-to-r from-white to-gray-300 hover:from-gray-100 hover:to-gray-400 text-black p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${
-    isMenuOpen ? "scale-90" : "scale-100"
-  }`}
-  aria-label="Toggle menu"
->
-  {!isMenuOpen && (
-    <>
-      <span className="absolute inset-0 rounded-full bg-white animate-ping opacity-75"></span>
-      <span className="absolute inset-0 rounded-full bg-gray-300 animate-pulse opacity-50"></span>
+          <div className="flex items-center gap-2">
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden flex h-10 w-10 items-center justify-center rounded-full text-white hover:bg-white/10">
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+            <button className="flex h-10 items-center justify-center rounded-full bg-blue-600 px-6 text-sm font-bold text-white shadow-lg transition-all hover:bg-blue-500 hover:scale-105 active:scale-95">
+              Contact
+            </button>
+          </div>
+        </nav>
+
+        {/* Mobile Dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="absolute top-20 left-0 right-0 mx-auto w-[90%] max-w-md rounded-2xl border border-white/20 bg-black/95 backdrop-blur-2xl p-4 shadow-2xl md:hidden flex flex-col gap-2">
+              {navLinks.map((item) => (
+                <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setIsMobileMenuOpen(false)} className="block rounded-xl px-4 py-3 text-center text-white hover:bg-white/10 font-medium">
+                  {item}
+                </a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* --- 2. THE SIDEBAR HANDLE (Ghost Preview + Bling) --- */}
+      <div className="fixed left-0 top-1/2 z-[100] -translate-y-1/2">
+        {!isSidebarOpen && (
+          <motion.button
+            initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
+            onClick={() => setIsSidebarOpen(true)}
+            className="group relative flex flex-col items-center gap-4 py-6 px-2 rounded-r-[2.5rem] bg-black/30 backdrop-blur-md border-y border-r border-white/10 shadow-2xl transition-all hover:bg-black/50 hover:px-3"
+          >
+            {/* Bling Pulse */}
+            <div className="absolute inset-0 rounded-r-[2.5rem] bg-blue-500/10 animate-pulse -z-10" />
+
+            {/* Ghost Icons */}
+            <div className="flex flex-col gap-5 opacity-20 group-hover:opacity-60 transition-opacity">
+              {sideIcons.slice(0, 3).map((item, idx) => (
+                <div key={idx} className="text-white">{item.icon}</div>
+              ))}
+            </div>
+
+            <ChevronRight size={20} className="text-blue-400 mt-2 animate-bounce-x" />
+
+            {/* Blinking Dot */}
+
+          </motion.button>
+        )}
+      </div>
+
+      {/* --- 3. FULL SIDEBAR + WIDGET LOGIC --- */}
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => { setIsSidebarOpen(false); setActiveWidget(null); }} className="fixed inset-0 z-[101] bg-black/40 backdrop-blur-sm" />
+
+            <motion.div
+              initial={{ x: -150, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -150, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 150 }}
+              className="fixed left-4 top-1/2 z-[102] -translate-y-1/2 flex flex-row items-center"
+            >
+              {/* Main Sidebar Column */}
+              <div className="flex flex-col gap-3 rounded-[2.5rem] border border-white/20 bg-zinc-900/90 p-3 backdrop-blur-2xl shadow-2xl">
+                <button onClick={() => { setIsSidebarOpen(false); setActiveWidget(null); }} className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-white/5 text-gray-400 hover:bg-red-500 hover:text-white transition-all">
+                  <X size={20} />
+                </button>
+
+                {sideIcons.map((item, index) => (
+                  <div key={index} className="relative">
+                    <motion.button
+                      onClick={() => handleIconClick(index)}
+                      whileHover={{ scale: 1.1, x: 5 }}
+                      whileTap={{ scale: 0.9 }}
+                      className={`group flex h-14 w-14 items-center justify-center rounded-2xl transition-all shadow-lg ${activeWidget === index ? 'bg-blue-600 text-white' : 'bg-white/5 text-gray-300 ' + item.color + ' hover:text-white'}`}
+                    >
+                      {item.icon}
+                    </motion.button>
+
+                    {/* Connection Line & Widget Box */}
+                    <AnimatePresence>
+                      {activeWidget === index && (
+                        <>
+                          {/* Animated Connection Line */}
+                          <motion.div
+                            initial={{ width: 0 }} animate={{ width: 40 }} exit={{ width: 0 }}
+                            className="absolute left-14 top-1/2 -translate-y-1/2 h-0.5 bg-gradient-to-r from-blue-600 to-blue-400"
+                          />
+
+                          {/* Widget Box */}
+                          <motion.div
+                            initial={{ opacity: 0, x: -10, scale: 0.9 }} animate={{ opacity: 1, x: 0, scale: 1 }} exit={{ opacity: 0, x: -10, scale: 0.9 }}
+                            className="absolute left-[90px] top-1/2 -translate-y-1/2 min-w-[220px] rounded-2xl border border-white/20 bg-black/95 backdrop-blur-xl p-4 shadow-3xl"
+                          >
+                            <div className="flex items-center gap-3 mb-3">
+                              <div className="h-8 w-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">{item.icon}</div>
+                              <span className="text-sm font-bold text-white">{item.label}</span>
+                            </div>
+
+                            <div className="flex flex-col gap-3">
+                              <div className="text-[10px] text-gray-500 truncate bg-white/5 p-2 rounded-md border border-white/5">
+                                {item.href}
+                              </div>
+                              <div className="flex gap-2">
+                                <a href={item.href} target="_blank" rel="noreferrer" className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-blue-600 py-2 text-xs font-bold text-white hover:bg-blue-500 transition-colors">
+                                  Visit <ExternalLink size={12} />
+                                </a>
+                                <button onClick={() => setActiveWidget(null)} className="flex-1 rounded-lg bg-white/10 py-2 text-xs font-bold text-white hover:bg-white/20 transition-colors">
+                                  Close
+                                </button>
+                              </div>
+                            </div>
+                          </motion.div>
+                        </>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
-  )}
-  
-  {/* Circle Icon */}
-  <Circle size={28} className="relative z-10" />
-</button>
-        </div>
-      )}
-    </div>
   );
 }
-
-export default NavbarDemo;

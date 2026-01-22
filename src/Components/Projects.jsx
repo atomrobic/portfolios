@@ -1,306 +1,295 @@
-import React, { useState, useRef } from "react";
-import Tilt from "react-parallax-tilt";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const Projects = () => {
-  const scrollContainerRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+const PROJECT_DATA = [
+  {
+    id: 1,
+    title: "Food Delivery \n App",
+    tech: ["Django", "PostgreSQL", "Tailwind CSS"],
+    desc: "A full-stack food delivery platform with JWT authentication, restaurant listings, menu management, secure payment gateway, real-time order tracking, and an admin dashboard.",
+    github: "https://github.com/atomrobic/food-delivery-app",
+    cover:
+      "https://images.unsplash.com/photo-1613769049987-b31b641f25b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 2,
+    title: "OTT Platform - Movie Zone",
+    tech: ["Django REST Framework", "React.js", "PostgreSQL"],
+    desc: "A movie streaming application with role-based access control, watch history, CSRF protection, and performance optimization using pagination and caching.",
+    github: "https://github.com/atomrobic/movie-zone",
+    cover:
+      "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 3,
+    title: "E-Learning Platform",
+    tech: ["Django", "React.js", "Bootstrap"],
+    desc: "An online learning platform with backend APIs for courses, chapters, and enrollments, secure authentication, and a responsive interface for students and instructors.",
+    github: "https://github.com/atomrobic/e-learning-platform",
+    cover:
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 4,
+    title: "Career Site (Job Portal)",
+    tech: ["Django REST Framework", "MySQL", "React.js"],
+    desc: "A job portal with job posting, applications, blogs, JWT authentication, user profile management, and search/filter functionality.",
+    github: "https://github.com/atomrobic/career-site",
+    cover:
+      "https://images.unsplash.com/photo-1556155099-490a1ba16284?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 5,
+    title: "URL Shortener",
+    tech: ["React", "JavaScript", "Bootstrap"],
+    desc: "A URL shortening web application built with React, featuring clean UI, responsive design, and simple redirection logic.",
+    github: "https://github.com/atomrobic/url-shortener",
+    cover:
+      "https://images.unsplash.com/photo-1555066931-bf19c0fd1085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: 6,
+    title: "Weight Management",
+    tech: ["Django", "Python", "Bootstrap"],
+    desc: "A health-focused web app to track weight progress, built using Django with secure forms and user authentication.",
+    github: "https://github.com/atomrobic/weight-management-app",
+    cover:
+      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+  },
+];
 
-  // REAL PROJECTS FROM YOUR CV (B&W STYLE)
-  const projects = [
-    {
-      id: 1,
-      title: "Food Delivery Platform",
-      company: "I Hub (UK) • Remote",
-      time: "2024 – Present",
-      tech: "Django • React • PostgreSQL",
-      desc: "Engineered full-stack platform with payment integration, real-time order tracking, and admin dashboard. Deployed with CI/CD on Render and Vercel.",
-      link: "https://github.com/atomrobic/food-delivery-django",
-      image: "https://images.unsplash.com/photo-1571091718767-18b5b1457a8c?w=800&h=600&fit=crop&grayscale=100",
-    },
-    {
-      id: 2,
-      title: "E-Learning Management System",
-      company: "Mashupstack • Internship",
-      time: "2023 – 2024",
-      tech: "Django • PostgreSQL",
-      desc: "Created LMS with course management and enrollment workflows. Designed responsive UI for students and instructors. Optimized performance through modular architecture.",
-      link: "https://github.com/atomrobic/elearning-django",
-      image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&h=600&fit=crop&grayscale=100",
-    },
-    {
-      id: 3,
-      title: "Career Portal",
-      company: "Freelance / I Hub",
-      time: "2024",
-      tech: "DRF • React • JWT",
-      desc: "Built job portal with posting and application tracking. Implemented advanced search and filtering with JWT auth. Integrated DRF backend with modern React frontend.",
-      link: "https://github.com/atomrobic/job-portal-drf",
-      image: "https://images.unsplash.com/photo-1499750310107-5fef28a666f8?w=800&h=600&fit=crop&grayscale=100",
-    },
-    {
-      id: 4,
-      title: "Ticket Management System",
-      company: "Personal Project",
-      time: "2024",
-      tech: "FastAPI • PostgreSQL",
-      desc: "Developed high-performance FastAPI backend. Implemented role-based access for multiple user types. Created API documentation with Swagger UI.",
-      link: "https://github.com/atomrobic/ticket-fastapi",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&grayscale=100",
-    },
-    {
-      id: 5,
-      title: "KSEB Pass Management Portal",
-      company: "GG Net Solution • Freelance",
-      time: "2024",
-      tech: "Django • Admin",
-      desc: "Government project for secure pass issuance and management. Built with Django Admin and custom workflows.",
-      link: "#",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c2f2?w=800&h=600&fit=crop&grayscale=100",
-    },
-    {
-      id: 6,
-      title: "STL 3D Model Compressor",
-      company: "Personal • C# Project",
-      time: "2023",
-      tech: "C# • WinForms",
-      desc: "Built desktop tool for 3D model file compression. Implemented multithreaded binary file processing. Designed intuitive Windows Forms interface.",
-      link: "https://github.com/atomrobic/stl-compressor-csharp",
-      image: "https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?w=800&h=600&fit=crop&grayscale=100",
-    },
-  ];
+const MAX_CHARS = 180;
 
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
-    setScrollLeft(scrollContainerRef.current.scrollLeft);
-  };
+const MovieApp = () => {
+  const [cards, setCards] = useState(PROJECT_DATA);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const autoPlayTimer = useRef(null);
 
-  const handleMouseUp = () => setIsDragging(false);
-  const handleMouseLeave = () => setIsDragging(false);
+  const topCard = cards[0];
 
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - scrollContainerRef.current.offsetLeft;
-    const walk = (x - startX) * 2.5;
-    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const scroll = (direction) => {
-    const container = scrollContainerRef.current;
-    const scrollAmount = window.innerWidth < 768 ? 340 : 420;
-    container.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
+  // Rotate cards
+  const nextCard = () => {
+    setCards((prev) => {
+      const newCards = [...prev];
+      const swipedCard = newCards.shift();
+      return [...newCards, swipedCard];
     });
   };
 
+  // Reset read more when card changes
+  useEffect(() => {
+    setIsExpanded(false);
+  }, [topCard.id]);
+
+  // Auto-play
+  useEffect(() => {
+    if (isAutoPlaying) {
+      autoPlayTimer.current = setInterval(() => {
+        nextCard();
+      }, 4000);
+    }
+    return () => clearInterval(autoPlayTimer.current);
+  }, [isAutoPlaying, cards]);
+
+  const handleDragStart = () => {
+    setIsAutoPlaying(false);
+  };
+
+  const handleDragEnd = (_, info) => {
+    if (Math.abs(info.offset.x) > 100 || Math.abs(info.offset.y) > 100) {
+      nextCard();
+    }
+    setTimeout(() => setIsAutoPlaying(true), 1000);
+  };
+
+  const getDisplayText = (text) => {
+    if (isExpanded || text.length <= MAX_CHARS) return text;
+    return text.slice(0, MAX_CHARS) + "...";
+  };
+
   return (
-    <div className="w-full py-20 px-4 bg-black text-white">
-      <div className="max-w-7xl mx-auto">
-
-        {/* ────────────────────────  TITLE CARD  ──────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="title-card mx-auto mt-12"
-        >
-          <h2 className="title-text">PROJECTS</h2>
-          <div className="title-underline" />
-        </motion.div>
-
-        <div className="relative mt-16">
-          {/* Left Arrow */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => scroll("left")}
-            className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-30 bg-white border-2 border-black rounded-full p-3 shadow-lg hover:bg-gray-100 transition-all"
-          >
-            <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
-            </svg>
-          </motion.button>
-
-          {/* Scrollable Projects */}
-          <div
-            ref={scrollContainerRef}
-            onMouseDown={handleMouseDown}
-            onMouseLeave={handleMouseLeave}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove}
-            className="flex overflow-x-auto gap-8 px-6 py-8 scroll-smooth cursor-grab active:cursor-grabbing scrollbar-hide snap-x snap-mandatory select-none"
-          >
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="flex-shrink-0 w-[340px] sm:w-[380px] md:w-[420px] snap-center"
-              >
-                <Tilt
-                  tiltMaxAngleX={6}
-                  tiltMaxAngleY={6}
-                  perspective={1200}
-                  scale={1.02}
-                  transitionSpeed={1800}
-                  glareEnable={true}
-                  glareMaxOpacity={0.1}
-                  glareColor="#000000"
-                  glarePosition="all"
-                  className="h-full"
-                >
-                  <div className="relative group rounded-lg overflow-hidden border-2 border-gray-300 shadow-xl h-[560px] transition-all duration-500 hover:shadow-2xl hover:border-white bg-gradient-to-b from-gray-900 to-black">
-                    {/* B&W Image */}
-                    <div className="relative h-56 overflow-hidden bg-gray-50">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover grayscale transition-transform duration-1000 group-hover:scale-105"
-                        draggable="false"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-8 space-y-6">
-                      <div>
-                        <p className="text-xs font-bold text-white tracking-widest uppercase">
-                        </p>
-                        <h3 className="text-2xl font-black mt-1 leading-tight text-center">
-                          {project.title}
-                        </h3>
-                      </div>
-
-                     <p className="project-desc text-sm text-white/80 leading-relaxed">
-  {project.desc}
-</p>
-
-
-                      <div className="space-y-3 text-sm">
-                          
-                        <div className="text-xs font-mono text-gray-500">
-                          {project.tech}
-                        </div>
-                      </div>
-
-                      {/* CTA */}
-                      <div className="pt-2">
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black font-bold text-sm rounded-md hover:bg-gray-200 transition-all duration-300 group"
-                        >
-                          View on GitHub
-                          <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </Tilt>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Right Arrow */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => scroll("right")}
-            className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-white border-2 border-black rounded-full p-3 shadow-lg hover:bg-gray-100 transition-all"
-          >
-            <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-            </svg>
-          </motion.button>
+    <div className="min-h-screen bg-black text-white">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-8 md:py-20">
+        {/* Header */}
+        <div className="mb-8 md:mb-20">
+          <h2 className="text-sm uppercase tracking-[0.3em] text-gray-500 mb-4 font-light">
+            Portfolio
+          </h2>
+          <h1 className="text-4xl md:text-7xl font-light tracking-tight">Selected Work</h1>
         </div>
 
-        {/* Mobile Hint */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-center mt-12 text-gray-400 text-sm font-medium"
-        >
-          Swipe to explore more projects
-        </motion.p>
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-20 items-start">
+          {/* LEFT SIDE - Card Stack */}
+          <div className="relative h-[400px] md:h-[550px] lg:sticky lg:top-20">
+            {cards.map((card, index) => {
+              const isTop = index === 0;
+              if (index > 2) return null;
+
+              return (
+                <motion.div
+                  key={card.id}
+                  drag={isTop}
+                  dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+                  dragElastic={0.7}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                  initial={{ scale: 1 - index * 0.04, y: index * 24, opacity: 1 - index * 0.25 }}
+                  animate={{ scale: 1 - index * 0.04, y: index * 24, opacity: 1 - index * 0.25 }}
+                  transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+                  className="absolute w-full h-[350px] md:h-[500px] rounded-lg overflow-hidden border border-white/10 cursor-grab active:cursor-grabbing"
+                  style={{
+                    zIndex: 10 - index,
+                    backgroundImage: `url(${card.cover})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8">
+                    <div className="flex gap-2 mb-3 md:mb-4">
+                      {card.tech.slice(0, 3).map((t, i) => (
+                        <span key={i} className="text-xs px-2 md:px-3 py-1 md:py-1.5 bg-white/10 backdrop-blur-md rounded border border-white/20 font-light">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="text-xl md:text-3xl font-light tracking-tight whitespace-pre-line">{card.title}</h3>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* RIGHT SIDE - Details (Hidden on Mobile) */}
+          <div className="hidden lg:block space-y-12 pt-8">
+            <div>
+              <div className="inline-block mb-6">
+                <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-light">
+                  0{cards.findIndex(c => c.id === topCard.id) + 1} / Featured
+                </span>
+              </div>
+
+              <h2 className="text-5xl font-light tracking-tight mb-8 leading-tight whitespace-pre-line">
+                {topCard.title}
+              </h2>
+
+              {/* Description */}
+              <div className="space-y-4 mb-10">
+                <p className="text-base text-gray-400 leading-relaxed font-light">
+                  {getDisplayText(topCard.desc)}
+                </p>
+                {topCard.desc.length > MAX_CHARS && (
+                  <button
+                    onClick={() => setIsExpanded((prev) => !prev)}
+                    className="text-sm text-white hover:text-gray-300 transition-colors underline underline-offset-4 font-light"
+                  >
+                    {isExpanded ? "Show less" : "Read more"}
+                  </button>
+                )}
+              </div>
+
+              {/* Tech Stack */}
+              <div className="mb-10">
+                <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-4 font-light">
+                  Tech Stack
+                </h3>
+                <div className="flex gap-3 flex-wrap">
+                  {topCard.tech.map((t) => (
+                    <span key={t} className="px-4 py-2.5 bg-white/5 border border-white/10 rounded text-sm font-light">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA */}
+              <a
+                href={topCard.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded hover:bg-gray-200 transition-all font-light text-sm tracking-wide group"
+              >
+                <span>View Repository</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+            </div>
+
+            {/* Progress Indicator */}
+            <div className="flex gap-2 pt-8">
+              {cards.slice(0, 6).map((card, i) => (
+                <div
+                  key={card.id}
+                  className={`h-0.5 flex-1 rounded-full transition-all duration-500 ${i === 0 ? 'bg-white' : 'bg-white/20'
+                    }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Details - Compact */}
+          <div className="lg:hidden space-y-4">
+            <div className="inline-block mb-2">
+              <span className="text-xs uppercase tracking-[0.2em] text-gray-500 font-light">
+                0{cards.findIndex(c => c.id === topCard.id) + 1} / Featured
+              </span>
+            </div>
+
+            {/* Description */}
+            <div className="space-y-3">
+              <p className="text-sm text-gray-400 leading-relaxed font-light">
+                {getDisplayText(topCard.desc)}
+              </p>
+              {topCard.desc.length > MAX_CHARS && (
+                <button
+                  onClick={() => setIsExpanded((prev) => !prev)}
+                  className="text-xs text-white hover:text-gray-300 transition-colors underline underline-offset-4 font-light"
+                >
+                  {isExpanded ? "Show less" : "Read more"}
+                </button>
+              )}
+            </div>
+
+            {/* Tech Stack */}
+            <div>
+              <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 font-light">
+                Tech Stack
+              </h3>
+              <div className="flex gap-2 flex-wrap">
+                {topCard.tech.map((t) => (
+                  <span key={t} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded text-xs font-light">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA */}
+            <a
+              href={topCard.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded hover:bg-gray-200 transition-all font-light text-sm tracking-wide group"
+            >
+              <span>View Repository</span>
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+
+            {/* Progress Indicator */}
+            <div className="flex gap-2 pt-4">
+              {cards.slice(0, 6).map((card, i) => (
+                <div
+                  key={card.id}
+                  className={`h-0.5 flex-1 rounded-full transition-all duration-500 ${i === 0 ? 'bg-white' : 'bg-white/20'
+                    }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-
-      {/* ────────────────────────  STYLES  ──────────────────────── */}
-      <style jsx>{`
-      .project-desc {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;       /* Limit to 3 lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  position: relative;
-}
-
-.project-desc::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 40%;                 /* fade height */
-  width: 100%;
-  background: linear-gradient(to bottom, transparent, #000); /* black fade */
-}
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* TITLE CARD */
-        .title-card {
-          background: rgba(255,255,255,.07);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid rgba(255,255,255,.12);
-          border-radius: 1rem;
-          padding: 1.5rem 3rem;
-          max-width: fit-content;
-          box-shadow: 
-            0 8px 32px rgba(0,0,0,.2),
-            inset 0 0 0 1px rgba(255,255,255,.05);
-          transition: all .4s ease;
-        }
-        .title-card:hover {
-          background: rgba(255,255,255,.12);
-          transform: translateY(-4px);
-          box-shadow: 
-            0 12px 40px rgba(0,0,0,.25),
-            inset 0 0 0 1px rgba(255,255,255,.08);
-        }
-        .title-text {
-          font-size: clamp(2.5rem, 6vw, 4rem);
-          font-weight: 900;
-          letter-spacing: -0.02em;
-          text-align: center;
-          background: linear-gradient(135deg, #e0e0e0 0%, #ffffff 50%, #b0b0b0 100%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          margin: 0;
-          line-height: 1;
-        }
-        .title-underline {
-          height: 4px;
-          width: 80px;
-          background: linear-gradient(90deg, #22d3ee, #3b82f6, #a855f7);
-          border-radius: 2px;
-          margin: 0.75rem auto 0;
-        }
-      `}</style>
     </div>
   );
-};
+}
 
-export default Projects;
+export default MovieApp;
