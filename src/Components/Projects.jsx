@@ -109,7 +109,7 @@ const MovieApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div id="projects" className="min-h-screen bg-black text-white">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-8 md:py-20">
         {/* Header */}
         <div className="mb-8 md:mb-20">

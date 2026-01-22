@@ -10,7 +10,7 @@ export default function PortfolioNavigation() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeWidget, setActiveWidget] = useState(null);
 
-  const navLinks = ["Home", "About", "Projects", "Experience"];
+  const navLinks = ["About", "Projects", "Experience"];
 
   const sideIcons = [
     { icon: <Github size={20} />, label: "GitHub", href: "https://github.com/atomrobic", color: "hover:bg-zinc-800" },

@@ -60,7 +60,7 @@ const RoadmapUI = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-slate-100 font-sans selection:bg-purple-500/30 overflow-x-hidden relative">
+    <div id="experience" className="min-h-screen bg-[#0a0a0a] text-slate-100 font-sans selection:bg-purple-500/30 overflow-x-hidden relative">
       <style>{`
         .hexagon { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); }
         .topographic-bg { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath d='M0 100 Q 100 50 200 100 T 400 100' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3Cpath d='M0 200 Q 150 150 250 250 T 400 200' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3Cpath d='M0 300 Q 100 350 200 300 T 400 350' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3C/svg%3E"); }
@@ -74,7 +74,7 @@ const RoadmapUI = () => {
           transition={{ duration: 2 }}
           className="absolute top-10 left-1/2 -translate-x-1/2 opacity-5 pointer-events-none select-none hidden lg:block"
         >
-          <h2 className="text-[8rem] md:text-[12rem] font-black uppercase tracking-widest text-white">HISTORY</h2>
+          <h2 className="text-[8rem] md:text-[10rem] font-black uppercase tracking-widest text-white">EXPERIENCE</h2>
         </motion.div>
 
         <div className="max-w-[1400px] mx-auto relative">
