@@ -1,6 +1,7 @@
 import Navbar from "../Components/Navbar";
 import Header from "../Components/Header";
 import { DotBackground } from "../Components/DotBackground";
+import Footer from "@/Components/Footer";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         <Header />
       </div>
       <DotBackground />
+      <Footer />
     </div>
   );
 }
