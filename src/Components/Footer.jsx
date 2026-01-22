@@ -109,7 +109,7 @@ const SimpleTerminalFooter = () => {
                         <div className="flex gap-4">
                             {[
                                 { icon: Github, href: "https://github.com/atomrobic" },
-                                { icon: Linkedin, href: "https://linkedin.com/in/akhil" },
+                                { icon: Linkedin, href: "https://www.linkedin.com/in/akhil-a-7186052b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" },
                                 { icon: Mail, href: "mailto:akhilappu@gmail.com" },
                             ].map((item, i) => (
                                 <motion.a

@@ -14,10 +14,10 @@ export default function PortfolioNavigation() {
 
   const sideIcons = [
     { icon: <Github size={20} />, label: "GitHub", href: "https://github.com/atomrobic", color: "hover:bg-zinc-800" },
-    { icon: <Linkedin size={20} />, label: "LinkedIn", href: "https://linkedin.com/in/akhil", color: "hover:bg-blue-700" },
+    { icon: <Linkedin size={20} />, label: "LinkedIn", href: "https://www.linkedin.com/in/akhil-a-7186052b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app", color: "hover:bg-blue-700" },
     { icon: <Youtube size={20} />, label: "YouTube", href: "#", color: "hover:bg-red-600" },
     { icon: <MessageCircle size={20} />, label: "WhatsApp", href: "#", color: "hover:bg-green-600" },
-    { icon: <Mail size={20} />, label: "Email", href: "mailto:contact@example.com", color: "hover:bg-red-500" },
+    { icon: <Mail size={20} />, label: "Email", href: "mailto:[EMAIL_ADDRESS]", color: "hover:bg-red-500" },
   ];
 
   const handleIconClick = (index) => {
