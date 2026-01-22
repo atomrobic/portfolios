@@ -8,7 +8,7 @@ export default defineConfig({
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
+        mono: ["JetBrains Mono", "monospace"],
       },
     },
   },
