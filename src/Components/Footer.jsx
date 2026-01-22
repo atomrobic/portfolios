@@ -14,54 +14,62 @@ import {
 const SimpleTerminalFooter = () => {
     const currentYear = new Date().getFullYear();
 
-    // Function to handle scroll to top
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
-        /* Added id="contact" and scroll-mt-24 to handle the fixed navbar offset */
         <footer
-            id="about"
-            className="relative text-gray-300 font-mono border-t border-gray-900 overflow-hidden scroll-mt-24"
+            id="about" // Change this to contact so Navbar can find it
+            className="relative text-gray-300 font-mono border-t border-white/5 overflow-hidden scroll-mt-24 bg-[#060010]"
         >
-            {/* Subtle glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent pointer-events-none" />
+            {/* --- Advanced Background Layers --- */}
+            {/* 1. Noise Texture */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+
+            {/* 2. Primary Terminal Glow (Emerald) */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_100%,rgba(16,185,129,0.08),transparent_40%)] mix-blend-screen" />
+
+            {/* 3. Secondary Tech Glow (Blue) */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(59,130,246,0.04),transparent_40%)] mix-blend-screen" />
+
+            {/* 4. Top Edge Beam */}
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
 
             <div className="max-w-6xl mx-auto px-6 py-16 relative z-10">
 
-                {/* Header */}
+                {/* Header Widget */}
                 <div className="flex items-center gap-3 mb-10">
-                    <div className="flex items-center gap-2 bg-gray-900/60 px-4 py-2 rounded-lg border border-gray-800">
+                    <div className="flex items-center gap-2 bg-gray-900/60 px-4 py-2 rounded-lg border border-gray-800 shadow-sm">
                         <Terminal className="w-5 h-5 text-emerald-400" />
-                        <span className="text-emerald-400 text-sm tracking-widest">
+                        <span className="text-emerald-400 text-sm tracking-widest uppercase">
                             //CONTACT_NODE
                         </span>
                     </div>
                 </div>
 
-                {/* Main Content */}
+                {/* Main Content Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-                    {/* LEFT: Profile */}
+                    {/* LEFT: Identity */}
                     <div className="space-y-6">
                         <div>
-                            <h3 className="text-xl font-semibold text-white">
+                            <h3 className="text-xl font-semibold text-white tracking-tight">
                                 Akhil Appu
                             </h3>
-                            <p className="text-gray-400 mt-2">
+                            <p className="text-gray-400 mt-2 text-sm leading-relaxed">
                                 Full Stack Engineer • Django • React • FastAPI
                                 <br />
-                                Building scalable web products & freelancing.
+                                Engineering scalable web architecture & custom solutions.
                             </p>
                         </div>
 
-                        {/* Stack */}
-                        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-5">
+                        {/* Tech Stack Chip Cloud */}
+                        <div className="bg-gray-950/50 border border-gray-800/50 rounded-xl p-5 backdrop-blur-sm">
                             <div className="flex items-center gap-2 mb-4">
-                                <Cpu className="w-4 h-4 text-emerald-400" />
-                                <span className="text-sm text-gray-400 tracking-wider">
-                                    ACTIVE STACK
+                                <Cpu className="w-4 h-4 text-emerald-500" />
+                                <span className="text-[10px] text-gray-500 tracking-[0.2em] font-bold">
+                                    COMPILED_STACK
                                 </span>
                             </div>
                             <div className="flex flex-wrap gap-2">
@@ -71,7 +79,7 @@ const SimpleTerminalFooter = () => {
                                 ].map((tech) => (
                                     <span
                                         key={tech}
-                                        className="px-3 py-1 text-[10px] rounded-full bg-gray-800 text-emerald-400 border border-emerald-500/10"
+                                        className="px-3 py-1 text-[10px] rounded-md bg-emerald-500/5 text-emerald-400/80 border border-emerald-500/10 hover:border-emerald-500/30 transition-colors"
                                     >
                                         {tech}
                                     </span>
@@ -79,96 +87,92 @@ const SimpleTerminalFooter = () => {
                             </div>
                         </div>
 
-                        {/* Resume */}
-                        <a
+                        {/* Action: Resume */}
+                        <motion.a
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                             href="https://drive.google.com/file/d/1VC_aYurVHgj0kCu1e__b-Kl3V0G9phkJ/preview"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-3 border border-emerald-500/50 
-                px-6 py-3 rounded-xl text-sm text-emerald-400
-                hover:bg-emerald-500/10 hover:text-white transition-all group"
+                            className="inline-flex items-center gap-3 bg-emerald-500/5 border border-emerald-500/30 
+                px-6 py-3 rounded-xl text-sm text-emerald-400 font-bold
+                hover:bg-emerald-500/10 hover:text-emerald-300 transition-all group"
                         >
                             <Download size={18} className="group-hover:translate-y-0.5 transition-transform" />
-                            DOWNLOAD_RESUME
-                        </a>
+                            RESUME.PDF
+                        </motion.a>
                     </div>
 
-                    {/* RIGHT: Social + Status */}
+                    {/* RIGHT: Connectivity */}
                     <div className="space-y-6">
-
-                        {/* Social Icons */}
+                        {/* Social Matrix */}
                         <div className="flex gap-4">
                             {[
                                 { icon: Github, href: "https://github.com/atomrobic" },
                                 { icon: Linkedin, href: "https://linkedin.com/in/akhil" },
                                 { icon: Mail, href: "mailto:akhilappu@gmail.com" },
                             ].map((item, i) => (
-                                <a
+                                <motion.a
                                     key={i}
+                                    whileHover={{ y: -3 }}
                                     href={item.href}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="w-12 h-12 rounded-xl bg-gray-900 border border-gray-800
+                                    className="w-12 h-12 rounded-xl bg-gray-900/80 border border-gray-800
                     flex items-center justify-center text-gray-400
-                    hover:text-white hover:border-emerald-500/50 hover:bg-emerald-500/5
-                    transition-all"
+                    hover:text-emerald-400 hover:border-emerald-500/30
+                    transition-all shadow-inner"
                                 >
-                                    <item.icon size={18} />
-                                </a>
+                                    <item.icon size={20} />
+                                </motion.a>
                             ))}
                         </div>
 
-                        {/* Status */}
-                        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-5">
-                            <div className="flex items-center gap-2 mb-3">
-                                <Sparkles className="w-4 h-4 text-emerald-400" />
-                                <span className="text-sm text-gray-400 tracking-wider">
-                                    LIVE STATUS
+                        {/* Live Server Status Widget */}
+                        <div className="bg-gray-950/50 border border-gray-800/50 rounded-xl p-5 backdrop-blur-sm">
+                            <div className="flex items-center gap-2 mb-4">
+                                <Sparkles className="w-4 h-4 text-emerald-500" />
+                                <span className="text-[10px] text-gray-500 tracking-[0.2em] font-bold">
+                                    SYSTEM_STATUS
                                 </span>
                             </div>
-                            <div className="text-sm space-y-2">
-                                <p>
-                                    <span className="text-gray-500">ROLE:</span>{" "}
-                                    Full Stack Developer
-                                </p>
-                                <p>
-                                    <span className="text-gray-500">MODE:</span>{" "}
-                                    Freelancer
-                                </p>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-gray-500">STATUS:</span>
+                            <div className="text-xs space-y-3">
+                                <div className="flex justify-between">
+                                    <span className="text-gray-500">AVAILABILITY:</span>
                                     <span className="text-emerald-400 flex items-center gap-2">
-                                        <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                                        Available for work
+                                        <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                                        READY_FOR_PROJECTS
                                     </span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-500">LOCATION:</span>
+                                    <span className="text-gray-300">REMOTE / INDIA</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-gray-500">TIMEZONE:</span>
+                                    <span className="text-gray-300">IST (UTC+5:30)</span>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="mt-16 pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-500 tracking-widest uppercase">
-                    <div>© {currentYear} Akhil Appu</div>
+                {/* Footer Metadata Bar */}
+                <div className="mt-16 pt-8 border-t border-gray-900/50 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 tracking-[0.15em] font-bold">
+                    <div className="order-2 md:order-1">© {currentYear} AKHIL_APU_SYS</div>
 
-                    {/* Back to Top */}
                     <button
                         onClick={scrollToTop}
-                        className="my-4 md:my-0 flex items-center gap-2 hover:text-emerald-400 transition-colors"
+                        className="order-1 md:order-2 mb-6 md:mb-0 group flex items-center gap-2 text-gray-500 hover:text-emerald-400 transition-colors"
                     >
-                        [ BACK_TO_TOP <ChevronUp size={14} /> ]
+                        [ <span className="px-1">GO_TO_ROOT</span> <ChevronUp size={14} className="group-hover:-translate-y-0.5 transition-transform" /> ]
                     </button>
 
-                    <div className="mt-2 md:mt-0">
-                        V2.4.0-STABLE
+                    <div className="order-3 hidden md:block opacity-50">
+                        BUILD_HASH: 7F29A1
                     </div>
                 </div>
             </div>
-
-            {/* Glow orbs */}
-            <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl" />
-            <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
         </footer>
     );
 };
