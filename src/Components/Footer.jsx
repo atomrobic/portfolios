@@ -20,7 +20,7 @@ const SimpleTerminalFooter = () => {
 
     return (
         <footer
-            id="contact"
+            id="about"
             className="relative text-gray-300 font-mono border-t border-white/5 overflow-hidden scroll-mt-24 bg-[#0b0d10]"
         >
             {/* Background Layers */}
