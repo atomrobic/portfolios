@@ -211,8 +211,11 @@ const SimpleTerminalFooter = () => {
                         ]
                     </button>
 
-                    <div className="order-3 hidden md:block opacity-50">
-                        BUILD_HASH: 7F29A1
+                    <div className="order-3 hidden md:flex flex-col items-end gap-1 opacity-50">
+                        <div>BUILD_HASH: 7F29A1</div>
+                        <div className="text-[8px] tracking-[0.2em]">
+                            STACK: REACT • TAILWIND • FRAMER_MOTION
+                        </div>
                     </div>
                 </div>
             </div>
