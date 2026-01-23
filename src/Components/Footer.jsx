@@ -29,6 +29,39 @@ const SimpleTerminalFooter = () => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(100,116,139,0.04),transparent_40%)] mix-blend-screen" />
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-slate-400/20 to-transparent" />
 
+            {/* Curved Background Lines (NEW) */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <svg className="w-full h-full opacity-[0.08]" viewBox="0 0 1400 600" preserveAspectRatio="none">
+                    <motion.path
+                        d="M -100 300 C 200 100 400 500 700 300 S 1200 100 1500 300"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="1.5"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 0.8 }}
+                        transition={{ duration: 4, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
+                    />
+                    <motion.path
+                        d="M -100 400 C 300 600 600 200 900 400 S 1200 200 1500 400"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="1.5"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 0.5 }}
+                        transition={{ duration: 7, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 1 }}
+                    />
+                    <motion.path
+                        d="M -100 200 C 400 400 800 100 1100 200 S 1400 500 1500 200"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="1"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 0.3 }}
+                        transition={{ duration: 10, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 2 }}
+                    />
+                </svg>
+            </div>
+
             <div className="max-w-6xl mx-auto px-6 py-16 relative z-10">
                 {/* Header Widget */}
                 <div className="flex items-center gap-3 mb-10">

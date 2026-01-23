@@ -108,7 +108,39 @@ export default function MovieApp() {
   };
 
   return (
-    <div id="projects" className="min-h-screen bg-black text-white">
+    <div id="projects" className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Curved Background Lines (NEW) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <svg className="w-full h-full opacity-[0.1]" viewBox="0 0 1400 800" preserveAspectRatio="none">
+          <motion.path
+            d="M -100 100 C 300 300 600 -100 900 100 S 1300 400 1500 100"
+            fill="none"
+            stroke="white"
+            strokeWidth="1.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.8 }}
+            transition={{ duration: 5, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
+          />
+          <motion.path
+            d="M -100 500 C 200 700 800 300 1100 500 S 1400 700 1500 500"
+            fill="none"
+            stroke="white"
+            strokeWidth="1.5"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.5 }}
+            transition={{ duration: 8, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 1 }}
+          />
+          <motion.path
+            d="M -100 300 C 400 100 900 500 1200 300 S 1500 100 1600 300"
+            fill="none"
+            stroke="white"
+            strokeWidth="1"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.3 }}
+            transition={{ duration: 12, ease: "easeInOut", repeat: Infinity, repeatType: "mirror", delay: 2 }}
+          />
+        </svg>
+      </div>
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-8 md:py-20">
 
         {/* Header */}
