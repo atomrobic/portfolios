@@ -55,7 +55,7 @@ export default function HeroHeader() {
 
         {/* LEFT TEXT */}
         <div className="order-2 lg:order-1 col-span-12 lg:col-span-4 flex flex-col items-center lg:items-end justify-center text-center lg:text-right w-full">
-          <span className="hidden lg:inline-block text-xs font-bold uppercase tracking-[0.4em] text-white/60 mb-2">
+          <span className="lg:inline-block text-xs font-bold uppercase tracking-[0.4em] text-white/60 mb-2">
             AKHIL-A
           </span>
           <div
