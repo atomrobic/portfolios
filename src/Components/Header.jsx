@@ -37,8 +37,8 @@ export default function HeroHeader() {
       {/* 2. TOP RIGHT STATUS BADGE - ACTIVE STATUS */}
       <div className="absolute top-6 right-8 z-30 hidden lg:flex items-center gap-3">
         <div className="flex flex-col items-end">
-          <span className="text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">Based in</span>
-          <span className="text-sm font-medium text-white/90">Kerala, India</span>
+          <span className="text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase"></span>
+          <span className="text-sm font-medium text-white/90">Kollam,Kerala,India</span>
         </div>
         <div className="h-10 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent" />
         <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
@@ -56,7 +56,7 @@ export default function HeroHeader() {
         {/* LEFT TEXT */}
         <div className="order-2 lg:order-1 col-span-12 lg:col-span-4 flex flex-col items-center lg:items-end justify-center text-center lg:text-right w-full">
           <span className="hidden lg:inline-block text-xs font-bold uppercase tracking-[0.4em] text-white/60 mb-2">
-            Python Full-Stack Engineer
+            AKHIL-A
           </span>
           <div
             ref={leftTextRef}
