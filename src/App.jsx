@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Home from "./pages/Home";
 import "./index.css";
 import Loader from "./Components/LoadingAnimation";
@@ -23,20 +24,21 @@ const App = () => {
     }, 3000);
   };
 
-  // Show loader while loading
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <Router>
       <div className="App">
-        <Routes>
-          <Route path="/" element={<HomePage onShowLoader={showLoader} />} />
-          <Route path="/home" element={<HomePage onShowLoader={showLoader} />} />
-          {/* Redirect unknown routes to home */}
-          <Route path="*" element={<Navigate to="/home" replace />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          {isLoading && <Loader key="loader" />}
+        </AnimatePresence>
+
+        {!isLoading && (
+          <Routes>
+            <Route path="/" element={<HomePage onShowLoader={showLoader} />} />
+            <Route path="/home" element={<HomePage onShowLoader={showLoader} />} />
+            {/* Redirect unknown routes to home */}
+            <Route path="*" element={<Navigate to="/home" replace />} />
+          </Routes>
+        )}
       </div>
     </Router>
   );

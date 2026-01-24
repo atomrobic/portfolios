@@ -2,10 +2,28 @@ import React from 'react';
 import MySVG from '../assets/file.svg'; // ✅ adjust path
 import './Loader.css';
 
+import { motion } from "framer-motion";
+
 const Loader = () => {
   return (
-    <div id="pre-load">
-      <div className="loader-inner">
+    <motion.div
+      id="pre-load"
+      initial={{ opacity: 1 }}
+      exit={{
+        opacity: 0,
+        y: -100, // Move up slightly
+        transition: { duration: 0.8, ease: "easeInOut" }
+      }}
+    >
+      <motion.div
+        className="loader-inner"
+        exit={{
+          scale: 0.5,
+          opacity: 0,
+          y: -200, // Move further up towards where header image might be
+          transition: { duration: 0.8, ease: "easeInOut" }
+        }}
+      >
         <div className="loader-logo">
           <img
             src={MySVG}
@@ -20,8 +38,8 @@ const Loader = () => {
         <div className="box"></div>
         <div className="box"></div>
         <div className="box"></div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
