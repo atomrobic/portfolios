@@ -2,53 +2,79 @@ import React from 'react';
 import { Rocket, Coins, View, Smartphone, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const RoadmapStep = ({ quarter, year, icon: Icon, items, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="flex flex-col items-start w-full"
-  >
-    <div className="relative mb-6 md:mb-8">
-      {/* Quarter Badge */}
-      <motion.div
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 260, damping: 20, delay: (index * 0.1) + 0.3 }}
-        className="absolute -top-8 left-2 md:left-6 bg-white text-black text-[10px] font-bold px-2 py-0.5 rounded-sm flex items-center shadow-lg z-20"
-      >
-        {quarter}
-        <div className="w-2 h-2 bg-white absolute -bottom-1 left-0 rotate-45"></div>
-      </motion.div>
+const RoadmapStep = ({ quarter, year, icon: Icon, items, index }) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: index * 0.1,
+      },
+    },
+  };
 
-      {/* Hexagon Container (CHANGED COLOR) */}
-      <div className="w-12 h-12 md:w-14 md:h-14 bg-slate-700 flex items-center justify-center relative z-10 hexagon shadow-slate-500/40 shadow-xl">
-        <Icon className="text-slate-200 w-5 h-5 md:w-6 md:h-6" />
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      className="flex flex-col items-start w-full"
+    >
+      <div className="relative mb-6 md:mb-8">
+        {/* Quarter Badge */}
+        <motion.div
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ type: "spring", stiffness: 260, damping: 20, delay: (index * 0.1) + 0.3 }}
+          className="absolute -top-8 left-2 md:left-6 bg-white text-black text-[10px] font-bold px-2 py-0.5 rounded-sm flex items-center shadow-lg z-20"
+        >
+          {quarter}
+          <div className="w-2 h-2 bg-white absolute -bottom-1 left-0 rotate-45"></div>
+        </motion.div>
+
+        {/* Hexagon Container (CHANGED COLOR) */}
+        <div className="w-12 h-12 md:w-14 md:h-14 bg-slate-700 flex items-center justify-center relative z-10 hexagon shadow-slate-500/40 shadow-xl">
+          <Icon className="text-slate-200 w-5 h-5 md:w-6 md:h-6" />
+        </div>
+
+        <span className="absolute top-14 md:top-16 left-0 md:left-2 text-[10px] font-bold text-slate-500 uppercase tracking-tighter">
+          {year}
+        </span>
       </div>
 
-      <span className="absolute top-14 md:top-16 left-0 md:left-2 text-[10px] font-bold text-slate-500 uppercase tracking-tighter">
-        {year}
-      </span>
-    </div>
-
-    <div className="space-y-2 md:space-y-3 w-full">
-      <h3 className="text-sm md:text-base font-bold text-white mb-3 md:mb-4 pl-2 border-l-2 border-slate-400 uppercase tracking-wider">
-        {quarter} {year}
-      </h3>
-      {items.map((item, i) => (
-        <motion.div
-          key={i}
-          whileHover={{ x: 5, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
-          className="bg-white/5 backdrop-blur-md p-3 md:p-4 rounded-md border border-white/5 text-xs md:text-sm text-slate-400 hover:border-slate-400/30 transition-all duration-300"
-        >
-          {item}
-        </motion.div>
-      ))}
-    </div>
-  </motion.div>
-);
+      <div className="space-y-2 md:space-y-3 w-full">
+        <h3 className="text-sm md:text-base font-bold text-white mb-3 md:mb-4 pl-2 border-l-2 border-slate-400 uppercase tracking-wider">
+          {quarter} {year}
+        </h3>
+        {items.map((item, i) => (
+          <motion.div
+            key={i}
+            variants={itemVariants}
+            whileHover={{ x: 5, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+            className="bg-white/5 backdrop-blur-md p-3 md:p-4 rounded-md border border-white/5 text-xs md:text-sm text-slate-400 hover:border-slate-400/30 transition-all duration-300"
+          >
+            {item}
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
+};
 
 const RoadmapUI = () => {
   const roadmapData = [
